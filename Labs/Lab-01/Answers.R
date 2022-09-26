@@ -6,7 +6,7 @@ this_year = 2022
 uni_start = 2020
 born_year = 2000
 
-((this_year-uni_start)/(this_year-born_year))*100
+((this_year - uni_start) / (this_year - born_year)) * 100
 
 # Practice 3
 comp = c(4,5,8,11)
@@ -25,7 +25,7 @@ source("firstscript.R")
 # Practice 8
 P = seq(31, 60)
 
-Q = matrix(data=c(P),ncol = 5, nrow = 6)
+Q = matrix(data = c(P), ncol = 5, nrow = 6)
 
 # Practice 9
 source("data_frame.R")
@@ -99,7 +99,7 @@ mean_height_females <- starwars %>% # or with this
   summarize(mean_height = mean(height, na.rm = TRUE))
 
 # Practice 28
-# ???
+long_data <- gather(Wide_data, key="variable", value="value", sex:income)
 
 # Practice 29
-# ???
+wide_data <- spread(long_data, variable, value)

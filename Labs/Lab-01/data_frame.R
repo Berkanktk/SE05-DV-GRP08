@@ -6,7 +6,10 @@ x3 = seq(from=1, to=101, by=1)
 t = data.frame(a=x1, b=x1+x2, c=x1+x2+x3)
 
 plot(t)
-# sd(t) error?
+
+sd(x2)
+sd(x3)
+sd(x4)
 
 # Practice 10
 plot(t$a, type="l", ylim=range(t), lwd=3, col=rgb(1,0,0,0.3))
