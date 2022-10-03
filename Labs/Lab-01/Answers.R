@@ -99,7 +99,34 @@ mean_height_females <- starwars %>% # or with this
   summarize(mean_height = mean(height, na.rm = TRUE))
 
 # Practice 28
+Wide_data <- read.csv("Wide_data.csv")   
+
 long_data <- gather(Wide_data, key="variable", value="value", sex:income)
 
 # Practice 29
 wide_data <- spread(long_data, variable, value)
+
+# Practice 30 (part 2, slide 18)
+ggplot(data = diamonds) + 
+geom_bar(mapping = aes(x = cut, color = cut))
+
+# Practice 30 (part 2, slide 19)
+ggplot(data = pressure) + 
+geom_bar(mapping = aes(x = temperature, y = pressure))
+
+ggplot(data = pressure) + 
+geom_bar(mapping = aes(x = temperature)) # To this
+
+ggplot(data = pressure) + 
+geom_line(mapping = aes(x = temperature, y = pressure)) # The fix
+
+# Practice 30 (part 2, slide 22)
+data(Marriage, package = "mosaicData")
+ggplot(Marriage, aes(x = age)) +
+  geom_histogram(fill = "cornflowerblue", 
+                 color = "white", 
+                 bins = 20) + # Change this value
+  labs(title="Participants by age", 
+       subtitle = "number of bins = 20",
+       x = "Age")
+
