@@ -19,6 +19,7 @@ Dataset can be found [here](https://www.kaggle.com/datasets/pranav941/evolution-
 - Which OS does the phone come with?
 - Average growth of memory in smarthphones by each year
 - Storage growth by year
+- Does Front camera evolution follow primary camera evolution?
 
 ## Report
 * Analysis
