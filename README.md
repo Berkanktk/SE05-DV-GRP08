@@ -20,6 +20,11 @@ Dataset can be found [here](https://www.kaggle.com/datasets/pranav941/evolution-
 - Average growth of memory in smarthphones by each year
 - Storage growth by year
 - Does Front camera evolution follow primary camera evolution?
+- How have phones evolved over time?
+  - Sizes
+  - Batteries
+  - Camera
+  - OS market share
 
 ## Report
 * Analysis
