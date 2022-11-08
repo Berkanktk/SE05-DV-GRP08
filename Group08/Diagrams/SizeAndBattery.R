@@ -15,7 +15,7 @@ datSize <- dat$Display_Size
 plot(datSize, datBattery, 
      xlab = "Screen Size", 
      ylab = "Battery Capacity", 
-     main = "Battery size and battery capacity")
+     main = "Screen size and battery capacity")
 
 # Performing regression
 datlm = lm(dat$Display_Size ~ dat$Battery)
