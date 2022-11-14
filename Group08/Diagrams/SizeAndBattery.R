@@ -5,7 +5,7 @@ dat <- read.csv("Smartphone_updated_dates.csv")
 dat <- dat %>% select(c("Battery", "Display_Size"))
 
 # Dropping NA values
-dat <- drop_na(datBattery)
+dat <- drop_na(dat)
 
 # Creating variables
 datBattery <- dat$Battery
@@ -22,4 +22,4 @@ datlm = lm(dat$Display_Size ~ dat$Battery)
 datlm
 summary(datlm)
 
-abline(2.626e+00 ~ 0.0008564) # Doesn't work
+abline(lm(dat$Battery ~ dat$Display_Size))
