@@ -50,18 +50,17 @@ for(i in 1:nrow(brandCountByYear) ) {
   }
 }
 
-install.packages("shiny")
-
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
     output$brandRelease <- renderPlot({
         sortedDataInYear <- sortedData %>% filter(Release_Date <= input$year)
+        selectedBrand <- input$brand
         
         ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
-          geom_bar(aes(fill = (Brand == "Samsung"), group = Brand),stat='identity') +
+          geom_bar(aes(fill = (Brand == selectedBrand), group = Brand),stat='identity') +
           theme_bw() +
-          labs(title="Phones released each year by brand",
+          labs(title="Phones released each year by brand since 2003",
                x = "Brands",
                y = "Amount") +
           coord_flip() +

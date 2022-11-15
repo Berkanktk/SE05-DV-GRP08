@@ -18,7 +18,8 @@ navbarPage("Evolution of Smartphones",
                                     "Year:",
                                     min = 2003,
                                     max = 2022,
-                                    value = 2022)
+                                    value = 2022),
+                        selectInput("brand", "Select Brand to highlight", choices = c("ZTE", "Xiaomi", "Sony", "Samsung", "OPPO", "Nokia", "Motorola", "Micromax", "LG", "Lenova", "LAVA", "Huawei", "HTC", "Honor", "BLU", "BlackBerry", "Asus", "Apple", "Alcatel"))
                       ),
                       
                       # Show a bar chart with releases for the year
