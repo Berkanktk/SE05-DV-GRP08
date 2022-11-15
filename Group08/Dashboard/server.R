@@ -1,4 +1,8 @@
+library(tidyverse)
+library(dplyr)
 library(shiny)
+library(ggplot2)
+library(gganimate)
 
 ####
 # Battery and Display Size
@@ -18,9 +22,6 @@ datSize <- dat$Display_Size
 ####
 # Brand releases per year
 ####
-library(tidyverse)
-library(ggplot2)
-library(gganimate)
 dat <- read_csv("../Data_Only_Year.csv")
 
 #Brand
@@ -49,7 +50,7 @@ for(i in 1:nrow(brandCountByYear) ) {
   }
 }
 
-
+install.packages("shiny")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
