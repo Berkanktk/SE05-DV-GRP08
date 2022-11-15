@@ -34,6 +34,19 @@ for(i in 1:nrow(brandCountByYear) ) {
   }
 }
 
+#Static
+sortedDataInYear <- sortedData %>% filter(Release_Date <= 2004)
+
+ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
+  geom_bar(aes(fill = (Brand == "Samsung"), group = Brand),stat='identity') +
+  theme_bw() +
+  labs(title="Phones released each year by brand",
+       x = "Brands",
+       y = "Amount") +
+  coord_flip() +
+  theme(legend.position = "none")
+  
+
 #Animate
 ggplot(sortedData, aes(x=Brand, y=n, fill=Brand)) + 
   geom_bar(stat='identity') +

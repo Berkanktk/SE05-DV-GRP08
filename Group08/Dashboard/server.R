@@ -59,12 +59,13 @@ shinyServer(function(input, output) {
         sortedDataInYear <- sortedData %>% filter(Release_Date <= input$year)
         
         ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
-          geom_bar(stat='identity') +
+          geom_bar(aes(fill = (Brand == "Samsung"), group = Brand),stat='identity') +
           theme_bw() +
-          labs(title="Phones sold each year by brand",
+          labs(title="Phones released each year by brand",
                x = "Brands",
                y = "Amount") +
-          coord_flip()
+          coord_flip() +
+          theme(legend.position = "none")
     })
     
     output$batteryDisplayPlot <- renderPlot({

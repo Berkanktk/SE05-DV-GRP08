@@ -18,7 +18,7 @@ format3 = "%B %Y" #"April 2020"
 format4 = "%Y" #"2020"
 
 #Correct format (Change output format here)
-correct_format = "%Y"
+correct_format = "%Y-%m-%d"
 
 
 format_match = 0
