@@ -38,9 +38,9 @@ for(i in 1:nrow(brandCountByYear) ) {
 ggplot(sortedData, aes(x=Brand, y=n, fill=Brand)) + 
   geom_bar(stat='identity') +
   theme_bw() +
-  labs(title="Phones sold each year by brand",
+  labs(title="Phones produced each year by brand",
        x = "Brands",
-       y = "Amount") +
+       y = "Models Produced") +
   coord_flip() + 
   # gganimate specific bits:
   transition_states(
