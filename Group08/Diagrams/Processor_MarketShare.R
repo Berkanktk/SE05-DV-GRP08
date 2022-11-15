@@ -15,12 +15,12 @@ datBrand <- data %>% select(c("Brand", "Processor"))
 datBrand <- drop_na(datBrand)
 
 # Filtering processors
-brandCount <- datBrand %>% count(Processor)
-brandCount <- brandCount %>% filter(n >= 35)
+processCount <- datBrand %>% count(Processor)
+processCount <- processCount %>% filter(n >= 35)
 
 # Create data
-group <- brandCount$Processor
-value <- brandCount$n
+group <- processCount$Processor
+value <- processCount$n
 data <- data.frame(group,value)
 
 # Treemap
