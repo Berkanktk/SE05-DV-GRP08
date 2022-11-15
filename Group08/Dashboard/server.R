@@ -54,13 +54,19 @@ for(i in 1:nrow(brandCountByYear) ) {
 shinyServer(function(input, output) {
 
     output$brandRelease <- renderPlot({
-        sortedDataInYear <- sortedData %>% filter(Release_Date <= input$year)
+        titleText <- paste("Phones released by brand from 2003 to", input$year)
+        if(input$cumulativeCheckbox){
+          sortedDataInYear <- sortedData %>% filter(Release_Date <= input$year)
+        } else {
+          sortedDataInYear <- sortedData %>% filter(Release_Date == input$year)
+          titleText <- paste("Phones released by brand in", input$year)
+        }
         selectedBrand <- input$brand
         
         ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
           geom_bar(aes(fill = (Brand == selectedBrand), group = Brand),stat='identity') +
           theme_bw() +
-          labs(title="Phones released each year by brand since 2003",
+          labs(title=titleText,
                x = "Brands",
                y = "Amount") +
           coord_flip() +
