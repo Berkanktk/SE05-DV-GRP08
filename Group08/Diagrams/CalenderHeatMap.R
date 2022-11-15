@@ -8,6 +8,7 @@ library(reshape2)
 library(plyr)
 library(scales)
 library(RColorBrewer)
+library(plotly)
 
 dat <- read_csv("Smartphone_updated_dates.csv")
 dat_dates <- read_csv("formatted_dates_full.csv")
@@ -38,10 +39,14 @@ dat$date <- as.numeric(format(dat$Release_Date,"%d"))
 
 dat<-ddply(dat,.(yearmonthf),transform,monthweek=1+week-min(week))
 
-query = sqldf("SELECT * FROM dat WHERE year BETWEEN 2004 and 2022")
+query = sqldf("SELECT * FROM dat WHERE year BETWEEN 2010 and 2010")
 
-ggplot(query, aes(monthf, date, fill = freq)) + 
+p <- ggplot(query, aes(monthf, date, fill = freq)) + 
   geom_tile(colour = "white") + 
-  #facet_grid(year~monthf) + 
-  scale_fill_gradient(low="gray", high="black") +
-  ggtitle("Phone Release Dates") +  xlab("\n\Month") + ylab("Dates")
+  #coord_equal() +
+  #coord_flip() +
+  geom_text(aes(label = round(freq, 1))) +
+  scale_fill_gradient(low="gray", high="red") #+
+  ggtitle("Phone Release Dates") +  xlab("\n Month") + ylab("Dates")
+  
+ggplotly(p)
