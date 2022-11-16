@@ -1,6 +1,8 @@
 # library
 library(treemap)
 library(tidyverse)
+library(ggplot2)
+library(treemapify) # install.packages("treemapify")
 
 # Loading dataset
 data <- read.csv("Smartphone_updated_dates.csv")   
@@ -37,3 +39,13 @@ treemap(data,
         fontcolor.labels = "white",
 )
 
+ggplot(data=processCount, aes(area = n, fill = Processor, label = paste(Processor, n, sep = "\n"))) +
+  geom_treemap() +
+  geom_treemap_text(colour = "white",
+                  place = "centre",
+                  size = 15) +
+  ggtitle("Processor Marketshare") +
+  theme(plot.title = element_text(hjust = 0.5, size = 20))  
+  # scale_fill_brewer(palette = "Paired")
+  
+  
