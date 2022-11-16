@@ -2,8 +2,9 @@
 library(treemap)
 library(tidyverse)
 library(RColorBrewer)
+library(ggplot2)
 
-myPalette <- brewer.pal(7, "Set1") # Yellow color is a problem, easy fix tho
+myPalette <- brewer.pal(8, "Set1") # Yellow color is a problem, easy fix tho
 
 # Loading dataset
 data <- read.csv("Smartphone_updated_dates.csv")   
@@ -28,6 +29,8 @@ OSCount[nrow(OSCount) + 1,] = list("Other", otherValSum)
 # Filtering data to show
 OSCount <- OSCount %>% filter(n >= 14)
 
+############################### CHARTS ###############################
+
 # Pie Chart (Trash)
 pie(OSCount$n , 
     labels = OSCount$OS, 
@@ -38,6 +41,12 @@ pie(OSCount$n ,
     main = "OS Distributions",
     cex=0.7
 )
+
+# Basic piechart (ggplot)
+ggplot(data=OSCount, aes(x="", y=n, fill=OS)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) +
+  theme_void()  # remove background, grid, numeric labels
 
 # Bar Chart
 barplot(sort(OSCount$n, decreasing = TRUE), 
@@ -50,5 +59,17 @@ barplot(sort(OSCount$n, decreasing = TRUE),
         legend.text=OSCount$OS, 
         args.legend=list(bty="n", horiz=FALSE))
 
+# Bar Chart (GGplot)
+ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) + 
+  geom_bar(stat="identity", color="white") +
+  ggtitle("OS Distribution for models") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  xlab("OS") + 
+  ylab("Total Models") + 
+  ylim(0, 4000) +
+  geom_text(aes(label=n), vjust=-0.3, size=3.5) + 
+  theme_minimal()
+  # theme_void() 
+  
 
 
