@@ -3,6 +3,7 @@ library(dplyr)
 library(shiny)
 library(ggplot2)
 library(gganimate)
+library(plotly)
 
 ####
 # Battery and Display Size
@@ -53,7 +54,7 @@ for(i in 1:nrow(brandCountByYear) ) {
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
-    output$brandRelease <- renderPlot({
+    output$brandRelease <- renderPlotly({
         titleText <- paste("Phones released by brand from 2003 to", input$year)
         if(input$cumulativeCheckbox){
           sortedDataInYear <- sortedData %>% filter(Release_Date <= input$year)
@@ -63,14 +64,14 @@ shinyServer(function(input, output) {
         }
         selectedBrand <- input$brand
         
-        ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
+        ggplotly(ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
           geom_bar(aes(fill = (Brand == selectedBrand), group = Brand),stat='identity') +
           theme_bw() +
           labs(title=titleText,
                x = "Brands",
                y = "Amount") +
           coord_flip() +
-          theme(legend.position = "none")
+          theme(legend.position = "none"))
     })
     
     output$batteryDisplayPlot <- renderPlot({

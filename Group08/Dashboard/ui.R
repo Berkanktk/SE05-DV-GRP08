@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+library(plotly)
+
 
 navbarPage("Evolution of Smartphones",
            tabPanel("Yearly releases",
@@ -25,7 +27,7 @@ navbarPage("Evolution of Smartphones",
                       
                       # Show a bar chart with releases for the year
                       mainPanel(
-                        plotOutput("brandRelease")
+                        plotlyOutput("brandRelease")
                       )
                     )),
            tabPanel("Battery and Display",
