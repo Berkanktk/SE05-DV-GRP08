@@ -64,14 +64,14 @@ shinyServer(function(input, output) {
         }
         selectedBrand <- input$brand
         
-        ggplotly(ggplot(sortedDataInYear, aes(x=Brand, y=n)) + 
+        ggplotly(ggplot(sortedDataInYear, aes(x=Brand, y=n, text=paste("Brand:", Brand, "\nCount:", n, "\nYear:", Release_Date),)) + 
           geom_bar(aes(fill = (Brand == selectedBrand), group = Brand),stat='identity') +
           theme_bw() +
           labs(title=titleText,
                x = "Brands",
                y = "Amount") +
           coord_flip() +
-          theme(legend.position = "none"))
+          theme(legend.position = "none"), tooltip = "text")
     })
     
     output$batteryDisplayPlot <- renderPlot({
