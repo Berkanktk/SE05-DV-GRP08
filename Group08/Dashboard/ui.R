@@ -13,6 +13,7 @@ library(plotly)
 
 navbarPage("Evolution of Smartphones",
            tabPanel("Yearly releases",
+                    titlePanel("Yearly Releases"),
                     # Sidebar with a slider input selecting year
                     sidebarLayout(
                       sidebarPanel(
@@ -29,7 +30,14 @@ navbarPage("Evolution of Smartphones",
                       mainPanel(
                         plotlyOutput("brandRelease")
                       )
-                    )),
+                    ),
+                    fluidRow(
+                      column(6,
+                             plotlyOutput("lineReleaseChart")),
+                      column(6,
+                             plotlyOutput("heatmapRelease"))
+                    )
+                    ),
            tabPanel("Battery and Display",
                     mainPanel(
                       plotOutput("batteryDisplayPlot")

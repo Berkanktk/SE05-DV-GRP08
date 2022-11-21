@@ -74,6 +74,34 @@ shinyServer(function(input, output) {
           theme(legend.position = "none"), tooltip = "text")
     })
     
+    output$heatmapRelease <- renderPlotly({
+      datH <- read_csv("../Smartphone_updated_dates.csv")
+      dat_datesH <- read_csv("../formatted_dates_full.csv")
+      datH[4] <- dat_datesH[1]
+      
+      datH <- datH %>% select(c("Brand", "Release_Date"))
+      datH <- drop_na(datH)
+      
+      datH <- datH %>% filter(Brand == input$brand) %>% count(Release_Date)
+      
+      datH$year<-as.numeric(as.POSIXlt(datH$Release_Date)$year+1900)
+      datH$month<-as.numeric(as.POSIXlt(datH$Release_Date)$mon+1)
+      
+      datH$monthf<-factor(datH$month,levels=as.character(1:12),labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),ordered=TRUE)
+      
+      datH$date <- as.numeric(format(datH$Release_Date,"%d"))
+      
+      query <- datH %>% filter(year >= 2003) %>% filter(year <= 2022)  %>% select(c(year, monthf, n))
+      grouped <- query %>% group_by(monthf, year) %>% summarise(n=sum(n))
+      
+      p <- ggplot(grouped, aes(year, monthf, fill = n)) + 
+        geom_tile(colour = "white") + 
+        scale_fill_gradient2(low="blue", high="red") +
+        ggtitle("Phone Release Dates") +  xlab("\nMonth") + ylab("Dates")
+      
+      ggplotly(p)
+    })
+    
     output$batteryDisplayPlot <- renderPlot({
       # Plotting them in a graph
       plot(datSize, datBattery, 
