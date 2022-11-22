@@ -50,8 +50,20 @@ navbarPage("Evolution of Smartphones",
                              mainPanel(
                                img(src="Camera_evolution.gif", align="left")
                              ))
-                    )
-,
+                    ),
 
+            ),
+           tabPanel("Distribution",
+                    fluidPage(
+                      fluidRow(
+                        titlePanel("Which processor brand is most popular?"),
+                        plotOutput("ProcessorTreemap")
+                      ),
+                      fluidRow(
+                        titlePanel("Which OS is most popular?"),
+                        column(6, plotOutput("berkanPie")),
+                        column(6, plotOutput("berkanBar"))
+                      )
+                    )
             )
 )

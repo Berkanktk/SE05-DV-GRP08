@@ -45,7 +45,7 @@ ggplot(data=processCount, aes(area = n, fill = Processor, label = paste(Processo
                   place = "centre",
                   size = 15) +
   ggtitle("Processor Marketshare") +
-  theme(plot.title = element_text(hjust = 0.5, size = 20))  
-  # scale_fill_brewer(palette = "Paired")
+  theme(plot.title = element_text(hjust = 0.5, size = 20)) +
+  scale_fill_brewer(palette = "Paired")
   
   

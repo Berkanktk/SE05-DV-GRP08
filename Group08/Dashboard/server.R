@@ -74,6 +74,65 @@ grouped <- sortedDataOther %>% group_by(Brand, Release_Date) %>% summarise(n = s
 
 sortedData <- rbind(sortedData, grouped)
 
+####
+# Treemap for Processor marketshare
+####
+# library
+library(treemap)
+library(tidyverse)
+library(ggplot2)
+library(treemapify) # install.packages("treemapify")
+
+# Loading dataset
+data <- read.csv("../Smartphone_updated_dates.csv")   
+
+# Stripping processor names
+data$Processor <- word(data$Processor, 1)
+
+# Selecting columns
+datBrand <- data %>% select(c("Brand", "Processor"))
+
+# Dropping NA values
+datBrand <- drop_na(datBrand)
+
+# Filtering processors
+processCount <- datBrand %>% count(Processor)
+processCount <- processCount %>% filter(n >= 35)
+
+# Create data
+group <- processCount$Processor
+value <- processCount$n
+data <- data.frame(group,value)
+
+####
+# OS and Processor distribution
+####
+
+myPalette <- brewer.pal(8, "Paired") # Yellow color is a problem, easy fix tho
+
+# Loading dataset
+data <- read.csv("../Smartphone_updated_dates.csv")   
+
+# Stripping OS names
+data$OS <- word(data$OS, 1)
+
+# Selecting columns
+datBrand <- data %>% select(c("Brand", "OS"))
+
+# Dropping NA values
+datBrand <- drop_na(datBrand)
+
+# Getting unique values 
+OSCount <- datBrand %>% count(OS)
+
+# Filtering out small values
+otherVal <- OSCount %>% filter(n < 13)
+otherValSum <- sum(otherVal$n)
+OSCount[nrow(OSCount) + 1,] = list("Other", otherValSum)
+
+# Filtering data to show
+OSCount <- OSCount %>% filter(n >= 21)
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
@@ -164,6 +223,43 @@ shinyServer(function(input, output) {
            ylab = "Battery Capacity", 
            main = "Screen size and battery capacity")
       abline(lm(dat$Battery ~ dat$Display_Size))
+    })
+    
+    output$ProcessorTreemap <- renderPlot({
+      
+      ggplot(data=processCount, aes(area = n, fill = Processor, label = paste(Processor, n, sep = "\n"))) +
+        geom_treemap() +
+        geom_treemap_text(colour = "white",
+                          place = "centre",
+                          size = 15) +
+        ggtitle("Processor Marketshare") +
+        theme(plot.title = element_text(hjust = 0.5, size = 20)) +
+        scale_fill_brewer(palette = "Paired")
+    })
+    
+    output$berkanPie <- renderPlot({
+      pie(OSCount$n , 
+          labels = OSCount$OS, 
+          col = myPalette, 
+          border = "white", 
+          edges = 1000, 
+          radius = 1, 
+          main = "OS Distributions",
+          cex=0.7
+      )
+    })
+
+    output$berkanBar <- renderPlot({
+      ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) +
+        scale_fill_brewer(palette = "Paired") +
+        geom_bar(stat="identity", color="white") +
+        ggtitle("OS Distribution for models") + 
+        theme(plot.title = element_text(hjust = 0.5)) + 
+        xlab("OS") + 
+        ylab("Total Models") + 
+        ylim(0, 4000) +
+        geom_text(aes(label=n), vjust=-0.3, size=3.5) + 
+        theme_minimal()
     })
 
 })
