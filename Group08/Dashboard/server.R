@@ -123,7 +123,11 @@ shinyServer(function(input, output) {
       query <- datH %>% filter(year >= 2003) %>% filter(year <= 2022)  %>% select(c(year, n))
       grouped <- query %>% group_by(year) %>% summarise(n=sum(n))
       
-      ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, 50) + xlim(2003, 2022)
+      if(input$cumulativeCheckbox){
+        grouped[,2] <- cumsum(grouped[, 2])
+      }
+
+      ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, NA) + xlim(2003, 2022) + ylab("Phones released")
       
     })
     
