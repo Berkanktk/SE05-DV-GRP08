@@ -29,12 +29,17 @@ dat <- read_csv("../Data_Only_Year.csv")
 datBrand <- dat %>% select(c("Brand", "Release_Date"))
 datBrand <- drop_na(datBrand)
 
-brandCount <- datBrand %>%
+brandCountMain <- datBrand %>%
   count(Brand)
 
+limit <- 30
+
 #Large Brands
-brandCount <- brandCount %>%
-  filter(n >= 35)
+brandCount <- brandCountMain %>%
+  filter(n >= limit)
+
+brandWrong <- brandCountMain %>%
+  filter(n < limit)
 
 brandCountByYear <- datBrand %>%
   count(Brand, Release_Date)
@@ -47,9 +52,26 @@ for(i in 1:nrow(brandCountByYear) ) {
   for(j in 1:nrow(brandCount)){
     if(brandCountByYear$Brand[i] == brandCount$Brand[j]){
       sortedData[nrow(sortedData) + 1,] <- brandCountByYear[i,]
+      break;
     }
   }
 }
+
+sortedDataOther <- data.frame(Brand=character(), Release_Date=integer(), n=integer())
+
+for(i in 1:nrow(brandCountByYear) ) {
+  j = 1
+  for(j in 1:nrow(brandWrong)){
+    if(brandCountByYear$Brand[i] == brandWrong$Brand[j]){
+      sortedDataOther[nrow(sortedDataOther) + 1,] <- c("Other", brandCountByYear[j,][2], brandCountByYear[j,][3])
+      break;
+    }
+  }
+}
+
+grouped <- sortedDataOther %>% group_by(Brand, Release_Date) %>% summarise(n = sum(n))
+
+sortedData <- rbind(sortedData, grouped)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -97,7 +119,8 @@ shinyServer(function(input, output) {
       p <- ggplot(grouped, aes(year, monthf, fill = n)) + 
         geom_tile(colour = "white") + 
         scale_fill_gradient2(low="blue", high="red") +
-        ggtitle("Phone Release Dates") +  xlab("\nMonth") + ylab("Dates")
+        ggtitle(paste("Release dates year/month for", input$brand)) +  xlab("Year") + ylab("Month") + 
+        xlim(2003, 2022)
       
       ggplotly(p)
     })
@@ -127,13 +150,15 @@ shinyServer(function(input, output) {
         grouped[,2] <- cumsum(grouped[, 2])
       }
 
-      ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, NA) + xlim(2003, 2022) + ylab("Phones released")
+      ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, NA) + xlim(2003, 2022) +
+      ggtitle(paste("Phones Released by", input$brand))  +
+      ylab("Phones released")
       
     })
     
     output$batteryDisplayPlot <- renderPlot({
       # Plotting them in a graph
-      plot(datSize, datBattery, 
+      plot(datSize, datBattery,
            xlab = "Screen Size", 
            ylab = "Battery Capacity", 
            main = "Screen size and battery capacity")
