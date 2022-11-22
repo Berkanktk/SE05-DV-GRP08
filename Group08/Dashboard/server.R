@@ -4,6 +4,7 @@ library(shiny)
 library(ggplot2)
 library(gganimate)
 library(plotly)
+library(RColorBrewer)
 
 ####
 # Battery and Display Size
@@ -88,7 +89,7 @@ shinyServer(function(input, output) {
         
         ggplotly(ggplot(sortedDataInYear, aes(x=Brand, y=n, text=paste("Brand:", Brand, "\nCount:", n, "\nYear:", Release_Date),)) + 
           geom_bar(aes(fill = (Brand == selectedBrand), group = Brand),stat='identity') +
-          theme_bw() +
+          scale_fill_brewer(palette = "Paired") + 
           labs(title=titleText,
                x = "Brands",
                y = "Amount") +
@@ -118,7 +119,7 @@ shinyServer(function(input, output) {
       
       p <- ggplot(grouped, aes(year, monthf, fill = n)) + 
         geom_tile(colour = "white") + 
-        scale_fill_gradient2(low="blue", high="red") +
+        scale_fill_gradient2(low="#A6CEE3", high="#1F78B4") +
         ggtitle(paste("Release dates year/month for", input$brand)) +  xlab("Year") + ylab("Month") + 
         xlim(2003, 2022)
       
