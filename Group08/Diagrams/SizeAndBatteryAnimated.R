@@ -8,13 +8,13 @@ library(transformr)
 data <- read_csv("Data_Only_Year.csv")
 
 # Cleanup
-dataFiltered <- data %>% select(c("Brand", "Battery", "Display_Size", "Release_Date", ))
+dataFiltered <- data %>% select(c("Brand", "Battery", "Display_Size", "Release_Date"))
 dataCleaned <- drop_na(dataFiltered)
 
 # Animation
 a <- ggplot(dataCleaned, aes(x=Display_Size, y=Battery)) +
       theme_bw() +
-      geom_point(alpha = 0.4, show.legend = FALSE) +
+      geom_point(alpha = 0.4, show.legend = FALSE, position = position_jitter(width = 0.5, height = 0.5)) +
       transition_states(Release_Date) +
       geom_smooth(method='lm', colour = "red", size=.5, se = FALSE) +
       labs(title = "Screen size and battery capacity",
