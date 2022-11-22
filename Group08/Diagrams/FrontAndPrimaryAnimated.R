@@ -23,8 +23,9 @@ completeData <- rbind(dataCleaned, missingYears)
 # Animation
 a <- ggplot(completeData, aes(x=as.numeric(Front_Camera), y=Primary_Camera)) +
   theme_bw() +
+  scale_fill_brewer(palette = "Paired") +
   geom_point(alpha = 0.4, show.legend = FALSE, position = position_jitter(seed = 0.5)) +
-  geom_smooth(method=lm, size=0.5, se=FALSE, color="red") +
+  geom_smooth(method=lm, size=0.5, se=FALSE) +
   transition_states(Release_Date) +
   labs(title = "Front camera and Primary camera resolution",
        subtitle = "Year: {closest_state}", 

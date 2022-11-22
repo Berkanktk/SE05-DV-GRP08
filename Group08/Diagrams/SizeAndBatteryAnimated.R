@@ -14,9 +14,10 @@ dataCleaned <- drop_na(dataFiltered)
 # Animation
 a <- ggplot(dataCleaned, aes(x=Display_Size, y=Battery)) +
       theme_bw() +
+      scale_fill_brewer(palette = "Paired") +
       geom_point(alpha = 0.4, show.legend = FALSE, position = position_jitter(width = 0.5, height = 0.5)) +
       transition_states(Release_Date) +
-      geom_smooth(method='lm', colour = "red", size=.5, se = FALSE) +
+      geom_smooth(method='lm', size=.5, se = FALSE) +
       labs(title = "Screen size and battery capacity",
           subtitle = "Year: {closest_state}", 
           x = "Screen Size (inches)", 
@@ -25,4 +26,4 @@ a <- ggplot(dataCleaned, aes(x=Display_Size, y=Battery)) +
 animate(a, duration = 15, fps = 20)
 
 # Save as gif:
-anim_save("ScreenAndBattery.gif_color")
+anim_save("ScreenAndBattery.gif")
