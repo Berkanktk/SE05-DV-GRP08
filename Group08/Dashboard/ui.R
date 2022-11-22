@@ -37,9 +37,21 @@ navbarPage("Evolution of Smartphones",
                       column(6,
                              plotlyOutput("heatmapRelease"))
                     )
-                    ),
-           tabPanel("Battery and Display",
-                    mainPanel(
-                      plotOutput("batteryDisplayPlot")
-                    ))
+            ),
+           tabPanel("Correlations",
+                    fluidRow(
+                      column(6,
+                             titlePanel("How does screen size relate to battery size?"),
+                             mainPanel(
+                               img(src="ScreenAndBattery.gif", align="left")
+                             )),
+                      column(6,
+                             titlePanel("How has primary and front camera evolution followed eachother?"),
+                             mainPanel(
+                               img(src="Camera_evolution.gif", align="left")
+                             ))
+                    )
+,
+
+            )
 )
