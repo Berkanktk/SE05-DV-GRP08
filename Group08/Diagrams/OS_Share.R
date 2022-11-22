@@ -4,7 +4,8 @@ library(tidyverse)
 library(RColorBrewer)
 library(ggplot2)
 
-myPalette <- brewer.pal(8, "Set1") # Yellow color is a problem, easy fix tho
+myPalette <- brewer.pal(8, "Paired") # Yellow color is a problem, easy fix tho
+customPallette <- c("#A4C639", "#66C2A5", "#FC8D62", "#8DA0CB", "#00A4EF", "#FFD92F", "#E5C494", "#B3B3B3")
 
 # Loading dataset
 data <- read.csv("Smartphone_updated_dates.csv")   
@@ -27,7 +28,7 @@ otherValSum <- sum(otherVal$n)
 OSCount[nrow(OSCount) + 1,] = list("Other", otherValSum)
 
 # Filtering data to show
-OSCount <- OSCount %>% filter(n >= 14)
+OSCount <- OSCount %>% filter(n >= 21)
 
 ############################### CHARTS ###############################
 
@@ -45,6 +46,7 @@ pie(OSCount$n ,
 # Basic piechart (ggplot)
 ggplot(data=OSCount, aes(x="", y=n, fill=OS)) +
   geom_bar(stat="identity", width=1) +
+  scale_fill_brewer(palette = "Paired") +
   coord_polar("y", start=0) +
   theme_void()  # remove background, grid, numeric labels
 
@@ -60,7 +62,8 @@ barplot(sort(OSCount$n, decreasing = TRUE),
         args.legend=list(bty="n", horiz=FALSE))
 
 # Bar Chart (GGplot)
-ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) + 
+ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) +
+  scale_fill_brewer(palette = "Paired") +
   geom_bar(stat="identity", color="white") +
   ggtitle("OS Distribution for models") + 
   theme(plot.title = element_text(hjust = 0.5)) + 
@@ -71,5 +74,7 @@ ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) +
   theme_minimal()
   # theme_void() 
   
-
+# --------- Note til Victor! ---------
+# Pie chart = pie version
+# Bar chart = ggplot version
 
