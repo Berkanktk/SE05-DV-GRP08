@@ -310,7 +310,7 @@ shinyServer(function(input, output) {
       p <- ggplot(group, aes(x=Year, y=Primary_Camera, )) +
         geom_line()+
         ylab("Camera (megapixels)") + 
-        ggtitle("Mean primary camera resolution over time")
+        ggtitle("Mean primary camera resolution over year")
       
       ggplotly(p,  tootltip = "text")
     })
@@ -353,7 +353,7 @@ shinyServer(function(input, output) {
         geom_bar(position="stack", stat="identity") +
         scale_fill_brewer(palette = "Paired") +
         ylab("Amount") + 
-        ggtitle("OS over time")
+        ggtitle("OS over year")
       
       
       ggplotly(p,  tootltip = "text")
