@@ -65,5 +65,21 @@ navbarPage("Evolution of Smartphones",
                         column(6, plotOutput("berkanBar"))
                       )
                     )
-            )
+            ),
+           tabPanel("Evolution",
+                    fluidPage(
+                      titlePanel("How have smartphones evolved over time?"),
+                      fluidRow(
+                        column(6, plotlyOutput("SizeOverTimeLine")),
+                        column(6, plotlyOutput("BatteryOverTimeLine"))
+                      ),
+                      fluidRow(
+                        column(6, plotlyOutput("PrimaryCameraOverTimeLine")),
+                        column(6, plotlyOutput("FrontCameraOverTimeLine"))
+                      ),
+                      fluidRow(
+                        plotlyOutput("OSOverTime")
+                      )
+                    )
+                    )
 )

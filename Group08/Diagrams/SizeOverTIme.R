@@ -6,25 +6,23 @@ library(RColorBrewer)
 
 ##DISPLAY SIZE line chart
 
-dat <- read_csv("Smartphone_updated_dates.csv")
-dat$Year<-as.numeric(as.POSIXlt(dat$Release_Date)$year+1900)
-datSizeOverTime <- dat %>% select(c("Display_Size", "Year"))
+datLines <- read_csv("Smartphone_updated_dates.csv")
+datLines$Year<-as.numeric(as.POSIXlt(datLines$Release_Date)$year+1900)
+datSizeOverTime <- datLines %>% select(c("Display_Size", "Year"))
 
 datSizeOverTime <- drop_na(datSizeOverTime)
 
 group <- datSizeOverTime %>% group_by(Year) %>% summarise(Display_Size = mean(Display_Size))
 
 p <- ggplot(group, aes(x=Year, y=Display_Size, )) +
-  geom_line()
+  geom_line() +
+  ylab("Display Size (Inches)")
   
 ggplotly(p,  tootltip = "text")
 
 ##Battery line chart
 
-
-dat <- read_csv("Smartphone_updated_dates.csv")
-dat$Year<-as.numeric(as.POSIXlt(dat$Release_Date)$year+1900)
-datBatteryOverTime <- dat %>% select(c("Battery", "Year"))
+datBatteryOverTime <- datLines %>% select(c("Battery", "Year"))
 
 datBatteryOverTime <- drop_na(datBatteryOverTime)
 
@@ -38,9 +36,7 @@ ggplotly(p,  tootltip = "text")
 
 ### OS stacked bar chart
 
-dat <- read_csv("Smartphone_updated_dates.csv")
-dat$Year<-as.numeric(as.POSIXlt(dat$Release_Date)$year+1900)
-datOSOverTime <- dat %>% select(c("OS", "Year"))
+datOSOverTime <- datLines %>% select(c("OS", "Year"))
 
 datOSOverTime <- drop_na(datOSOverTime)
 
@@ -66,9 +62,7 @@ ggplotly(p,  tootltip = "text")
 
 ##Primary Camera line chart
 
-dat <- read_csv("Smartphone_updated_dates.csv")
-dat$Year<-as.numeric(as.POSIXlt(dat$Release_Date)$year+1900)
-datCameraOverTime <- dat %>% select(c("Primary_Camera", "Year"))
+datCameraOverTime <- datLines %>% select(c("Primary_Camera", "Year"))
 
 datCameraOverTime <- drop_na(datCameraOverTime)
 
@@ -84,9 +78,7 @@ ggplotly(p,  tootltip = "text")
 
 ##Front Camera line chart
 
-dat <- read_csv("Smartphone_updated_dates.csv")
-dat$Year<-as.numeric(as.POSIXlt(dat$Release_Date)$year+1900)
-datFCameraOverTime <- dat %>% select(c("Front_Camera", "Year"))
+datFCameraOverTime <- datLines %>% select(c("Front_Camera", "Year"))
 
 datFCameraOverTime <- drop_na(datFCameraOverTime)
 datFCameraOverTime <- datFCameraOverTime[!is.na(as.numeric(as.character(datFCameraOverTime$Front_Camera))),]
