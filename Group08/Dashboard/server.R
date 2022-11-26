@@ -222,6 +222,7 @@ shinyServer(function(input, output) {
       ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, NA) + xlim(2003, 2022) +
       ggtitle(paste("Phones Released by", input$brand))  +
       ylab("Phones released") +
+      xlab("Year") + 
         theme_minimal()
       
     })
