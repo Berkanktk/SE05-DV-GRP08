@@ -13,7 +13,7 @@ library(plotly)
 
 navbarPage("Evolution of Smartphones",
            tabPanel("Yearly releases",
-                    titlePanel("Yearly Releases"),
+                    titlePanel("Are more phones being released each year?"),
                     # Sidebar with a slider input selecting year
                     sidebarLayout(
                       sidebarPanel(
