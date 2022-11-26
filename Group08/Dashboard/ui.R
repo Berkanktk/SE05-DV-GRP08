@@ -56,11 +56,11 @@ navbarPage("Evolution of Smartphones",
            tabPanel("Distribution",
                     fluidPage(
                       fluidRow(
-                        titlePanel("Which processor brand is most popular?"),
+                        titlePanel("Which processor brand is the most popular?"),
                         plotOutput("ProcessorTreemap")
                       ),
                       fluidRow(
-                        titlePanel("Which OS is most popular?"),
+                        titlePanel("Which OS is the most popular?"),
                         column(6, plotOutput("berkanPie")),
                         column(6, plotOutput("berkanBar"))
                       )
