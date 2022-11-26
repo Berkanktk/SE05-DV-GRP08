@@ -160,7 +160,8 @@ shinyServer(function(input, output) {
                x = "Brands",
                y = "Amount") +
           coord_flip() +
-          theme(legend.position = "none"), tooltip = "text")
+          theme(legend.position = "none") +
+            theme_minimal(), tooltip = "text")
     })
     
     output$heatmapRelease <- renderPlotly({
@@ -187,7 +188,8 @@ shinyServer(function(input, output) {
         geom_tile(colour = "white") + 
         scale_fill_gradient2(low="#A6CEE3", high="#1F78B4") +
         ggtitle(paste("Release dates year/month for", input$brand)) +  xlab("Year") + ylab("Month") + 
-        xlim(2003, 2022)
+        xlim(2003, 2022) +
+        theme_minimal()
       
       ggplotly(p)
     })
@@ -219,7 +221,8 @@ shinyServer(function(input, output) {
 
       ggplot(grouped, aes(x=year, n)) + geom_line() + ylim(0, NA) + xlim(2003, 2022) +
       ggtitle(paste("Phones Released by", input$brand))  +
-      ylab("Phones released")
+      ylab("Phones released") +
+        theme_minimal()
       
     })
     
@@ -265,7 +268,7 @@ shinyServer(function(input, output) {
         xlab("OS") + 
         ylab("Total Models") + 
         ylim(0, 4000) +
-        geom_text(aes(label=n), vjust=-0.3, size=3.5) + 
+        geom_text(aes(label=n), vjust=-0.3, size=3.5) +
         theme_minimal()
     })
     
@@ -279,7 +282,8 @@ shinyServer(function(input, output) {
       p <- ggplot(group, aes(x=Year, y=Display_Size)) +
         geom_line() +
         ylab("Display Size (Inches)") +
-        ggtitle("Mean display size in inches over year")
+        ggtitle("Mean display size in inches over year") +
+        theme_minimal()
         
       
       ggplotly(p,  tootltip = "text")
@@ -295,7 +299,8 @@ shinyServer(function(input, output) {
       p <- ggplot(group, aes(x=Year, y=Battery)) +
         geom_line() +
         ylab("Battery(maH)") +
-        ggtitle("Mean battery size in MaH over year")
+        ggtitle("Mean battery size in MaH over year") +
+        theme_minimal()
       
       ggplotly(p,  tootltip = "text")
     })
@@ -308,9 +313,10 @@ shinyServer(function(input, output) {
       group <- datCameraOverTime %>% group_by(Year) %>% summarise(Primary_Camera = mean(Primary_Camera))
       
       p <- ggplot(group, aes(x=Year, y=Primary_Camera, )) +
-        geom_line()+
+        geom_line() +
         ylab("Camera (megapixels)") + 
-        ggtitle("Mean primary camera resolution over year")
+        ggtitle("Mean primary camera resolution over year") +
+        theme_minimal()
       
       ggplotly(p,  tootltip = "text")
     })
@@ -326,9 +332,10 @@ shinyServer(function(input, output) {
       group <- datFCameraOverTime %>% group_by(Year) %>% summarise(Front_Camera = mean(as.double(Front_Camera)))
       
       p <- ggplot(group, aes(x=Year, y=Front_Camera, )) +
-        geom_line()+
+        geom_line() +
         ylab("Camera (megapixels)") +
-        ggtitle("Mean front camera resolution over year")
+        ggtitle("Mean front camera resolution over year") +
+        theme_minimal()
       
       ggplotly(p,  tootltip = "text")
     })
@@ -353,7 +360,8 @@ shinyServer(function(input, output) {
         geom_bar(position="stack", stat="identity") +
         scale_fill_brewer(palette = "Paired") +
         ylab("Amount") + 
-        ggtitle("OS over year")
+        ggtitle("OS over year") +
+        theme_minimal()
       
       
       ggplotly(p,  tootltip = "text")
