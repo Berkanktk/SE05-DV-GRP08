@@ -91,6 +91,7 @@ data$Processor <- word(data$Processor, 1)
 
 # Selecting columns
 datBrand <- data %>% select(c("Brand", "Processor"))
+datBrand$Processor <- replace(datBrand$Processor, datBrand$Processor == "Mediatek", "MediaTek")
 
 # Dropping NA values
 datBrand <- drop_na(datBrand)

@@ -15,6 +15,7 @@ datBrand <- data %>% select(c("Brand", "Processor"))
 
 # Dropping NA values
 datBrand <- drop_na(datBrand)
+datBrand$Processor <- replace(datBrand$Processor, datBrand$Processor == "Mediatek", "MediaTek")
 
 # Filtering processors
 processCount <- datBrand %>% count(Processor)
