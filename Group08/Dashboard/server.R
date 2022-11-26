@@ -160,8 +160,8 @@ shinyServer(function(input, output) {
                x = "Brands",
                y = "Amount") +
           coord_flip() +
-          theme(legend.position = "none") +
-            theme_minimal(), tooltip = "text")
+          theme_minimal() +
+          theme(legend.position = "none"), tooltip = "text")
     })
     
     output$heatmapRelease <- renderPlotly({
