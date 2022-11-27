@@ -23,7 +23,7 @@ navbarPage("Evolution of Smartphones",
                                     max = 2022,
                                     value = 2022),
                         selectInput("brand", "Select Brand to highlight", choices = c("ZTE", "Xiaomi", "Sony", "Samsung", "OPPO", "OnePlus", "Nokia", "Motorola", "Micromax", "LG", "Lenovo", "LAVA", "Huawei", "HTC", "Honor", "BLU", "BlackBerry", "Asus", "Apple", "Alcatel")),
-                        checkboxInput("cumulativeCheckbox", "Cumulatative", FALSE)
+                        checkboxInput("cumulativeCheckbox", "Cumulative", FALSE)
                       ),
                       
                       # Show a bar chart with releases for the year
