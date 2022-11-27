@@ -173,7 +173,13 @@ shinyServer(function(input, output) {
       datH <- datH %>% select(c("Brand", "Release_Date"))
       datH <- drop_na(datH)
       
-      datH <- datH %>% filter(Brand == input$brand) %>% count(Release_Date)
+      selectedBrand <- input$brand
+      
+      if(selectedBrand != "All"){
+        datH <- datH %>% filter(Brand == selectedBrand) %>% count(Release_Date)
+      } else {
+        datH <- datH %>% count(Release_Date)
+      }
       
       datH$year<-as.numeric(as.POSIXlt(datH$Release_Date)$year+1900)
       datH$month<-as.numeric(as.POSIXlt(datH$Release_Date)$mon+1)
@@ -204,7 +210,13 @@ shinyServer(function(input, output) {
       datH <- datH %>% select(c("Brand", "Release_Date"))
       datH <- drop_na(datH)
       
-      datH <- datH %>% filter(Brand == input$brand) %>% count(Release_Date)
+      selectedBrand <- input$brand
+      
+      if(selectedBrand != "All"){
+        datH <- datH %>% filter(Brand == selectedBrand) %>% count(Release_Date)
+      } else {
+        datH <- datH %>% count(Release_Date)
+      }
       
       datH$year<-as.numeric(as.POSIXlt(datH$Release_Date)$year+1900)
       datH$month<-as.numeric(as.POSIXlt(datH$Release_Date)$mon+1)

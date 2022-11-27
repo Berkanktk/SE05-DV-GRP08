@@ -22,7 +22,7 @@ navbarPage("Evolution of Smartphones",
                                     min = 2003,
                                     max = 2022,
                                     value = 2022),
-                        selectInput("brand", "Select Brand to highlight", choices = c("ZTE", "Xiaomi", "Sony", "Samsung", "OPPO", "OnePlus", "Nokia", "Motorola", "Micromax", "LG", "Lenovo", "LAVA", "Huawei", "HTC", "Honor", "BLU", "BlackBerry", "Asus", "Apple", "Alcatel")),
+                        selectInput("brand", "Select Brand to highlight", choices = c("ZTE", "Xiaomi", "Sony", "Samsung", "OPPO", "OnePlus", "Nokia", "Motorola", "Micromax", "LG", "Lenovo", "LAVA", "Huawei", "HTC", "Honor", "BLU", "BlackBerry", "Asus", "Apple", "Alcatel", "All")),
                         checkboxInput("cumulativeCheckbox", "Cumulative", FALSE)
                       ),
                       
