@@ -193,7 +193,7 @@ shinyServer(function(input, output) {
       
       p <- ggplot(grouped, aes(year, monthf, fill = n)) + 
         geom_tile(colour = "white") + 
-        scale_fill_gradient2(low="#A6CEE3", high="#1F78B4") +
+        scale_fill_gradient(low="#EBF3F8", high="#1F78B4") +
         ggtitle(paste("Release dates year/month for", input$brand)) +  xlab("Year") + ylab("Month") + 
         xlim(2003, 2022) +
         theme_minimal()
