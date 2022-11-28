@@ -23,7 +23,7 @@ a <- ggplot(dataCleaned, aes(x=Display_Size, y=Battery)) +
           x = "Screen Size (inches)", 
           y = "Battery capacity (maH)")
 
-animate(a, duration = 15, fps = 20)
+animate(a, duration = 15, fps = 20, width = 600, height = 600)
 
 # Save as gif:
 anim_save("ScreenAndBattery.gif")

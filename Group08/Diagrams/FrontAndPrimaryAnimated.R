@@ -32,7 +32,7 @@ a <- ggplot(completeData, aes(x=as.numeric(Front_Camera), y=Primary_Camera)) +
        x = "Front camera resolution (Megapixels)", 
        y = "Primary camera resolution (Megapixels)")
 
-animate(a, duration = 15, fps = 20)
+animate(a, duration = 15, fps = 20, width = 600, height = 600)
 
 # Save as gif:
 anim_save("Camera_evolution.gif")

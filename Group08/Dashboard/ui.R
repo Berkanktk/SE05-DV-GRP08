@@ -47,7 +47,7 @@ navbarPage("Evolution of Smartphones",
                                img(src="ScreenAndBattery.gif", align="left")
                              )),
                       column(6,
-                             titlePanel("How has primary and front camera evolution followed eachother?"),
+                             titlePanel("How has primary and front camera followed eachother?"),
                              mainPanel(
                                img(src="Camera_evolution.gif", align="left")
                              ))
