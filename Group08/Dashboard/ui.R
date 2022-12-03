@@ -62,25 +62,44 @@ navbarPage("Evolution of Smartphones",
                       ),
                       fluidRow(
                         titlePanel("Which OS is the most popular?"),
-                        column(6, plotOutput("berkanPie")),
-                        column(6, plotOutput("berkanBar"))
+                        column(6, plotOutput("OSPieChart")),
+                        column(6, plotOutput("OSBarChart"))
                       )
                     )
             ),
            tabPanel("Evolution",
                     fluidPage(
                       titlePanel("How have smartphones evolved over time?"),
-                      fluidRow(
-                        column(6, plotlyOutput("SizeOverTimeLine")),
-                        column(6, plotlyOutput("BatteryOverTimeLine"))
-                      ),
-                      fluidRow(
-                        column(6, plotlyOutput("PrimaryCameraOverTimeLine")),
-                        column(6, plotlyOutput("FrontCameraOverTimeLine"))
+                      sidebarLayout(
+                        sidebarPanel(
+                          selectInput(
+                            "chart", 
+                            "Select evolution to display", 
+                            choices=c(
+                              "Display size over time", 
+                              "Battery size over time", 
+                              "Primary camera over time", 
+                              "Front camera over time"
+                              )
+                            )
+                        ),
+                        mainPanel(
+                          plotlyOutput("EvolutionChart")
+                        )
                       ),
                       fluidRow(
                         plotlyOutput("OSOverTime")
                       )
                     )
-                    )
+          ),
+          tabPanel("About",
+                   titlePanel("Download dataset"),
+                   fluidPage(
+                     fluidRow(
+                       HTML("<p>The original dataset was found on kaggle, it can be found <a href='https://www.kaggle.com/datasets/pranav941/evolution-of-smartphones'>here</a>.</p><br /> <p>The data has been cleaned a little bit, so the dataset that has been used for this report can downloaded by pressing the download button below.</p>"),
+                       downloadButton("downloadData", "Download")
+                     )
+                   )
+
+         )
 )

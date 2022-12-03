@@ -261,7 +261,7 @@ shinyServer(function(input, output) {
         scale_fill_brewer(palette = "Paired")
     })
     
-    output$berkanPie <- renderPlot({
+    output$OSPieChart <- renderPlot({
       pie(OSCount$n , 
           labels = OSCount$OS, 
           col = myPalette, 
@@ -273,7 +273,7 @@ shinyServer(function(input, output) {
       )
     })
 
-    output$berkanBar <- renderPlot({
+    output$OSBarChart <- renderPlot({
       ggplot(data=OSCount, aes(x=reorder(OS, -n), y=n, fill=OS)) +
         scale_fill_brewer(palette = "Paired") +
         geom_bar(stat="identity", color="white") +
@@ -286,73 +286,66 @@ shinyServer(function(input, output) {
         theme_minimal()
     })
     
-    output$SizeOverTimeLine <- renderPlotly({
-      datSizeOverTime <- datLines %>% select(c("Display_Size", "Year"))
+    output$EvolutionChart <- renderPlotly({
+      selectedChart <- input$chart
       
-      datSizeOverTime <- drop_na(datSizeOverTime)
-      
-      group <- datSizeOverTime %>% group_by(Year) %>% summarise(Display_Size = mean(Display_Size))
-      
-      p <- ggplot(group, aes(x=Year, y=Display_Size)) +
-        geom_line() +
-        ylab("Display Size (Inches)") +
-        ggtitle("Mean display size in inches over year") +
-        theme_minimal()
+      if(selectedChart == "Display size over time"){
+        datSizeOverTime <- datLines %>% select(c("Display_Size", "Year"))
         
+        datSizeOverTime <- drop_na(datSizeOverTime)
+        
+        group <- datSizeOverTime %>% group_by(Year) %>% summarise(Display_Size = mean(Display_Size))
+        
+        p <- ggplot(group, aes(x=Year, y=Display_Size)) +
+          geom_line() +
+          ylab("Display Size (Inches)") +
+          ggtitle("Mean display size in inches over year") +
+          theme_minimal()
+        
+      } else if(selectedChart == "Battery size over time"){
+        datBatteryOverTime <- datLines %>% select(c("Battery", "Year"))
+        
+        datBatteryOverTime <- drop_na(datBatteryOverTime)
+        
+        group <- datBatteryOverTime %>% group_by(Year) %>% summarise(Battery = mean(Battery))
+        
+        p <- ggplot(group, aes(x=Year, y=Battery)) +
+          geom_line() +
+          ylab("Battery(maH)") +
+          ggtitle("Mean battery size in MaH over year") +
+          theme_minimal()
+      } else if(selectedChart == "Primary camera over time"){
+        datCameraOverTime <- datLines %>% select(c("Primary_Camera", "Year"))
+        
+        datCameraOverTime <- drop_na(datCameraOverTime)
+        
+        group <- datCameraOverTime %>% group_by(Year) %>% summarise(Primary_Camera = mean(Primary_Camera))
+        
+        p <- ggplot(group, aes(x=Year, y=Primary_Camera, )) +
+          geom_line() +
+          ylab("Camera (megapixels)") + 
+          ggtitle("Mean primary camera resolution over year") +
+          theme_minimal()
+      } else {
+        datFCameraOverTime <- datLines %>% select(c("Front_Camera", "Year"))
+        
+        datFCameraOverTime <- drop_na(datFCameraOverTime)
+        datFCameraOverTime <- datFCameraOverTime[!is.na(as.numeric(as.character(datFCameraOverTime$Front_Camera))),]
+        
+        datFCameraOverTime$Front_Camera <- word(datFCameraOverTime$Front_Camera, 1)
+        
+        group <- datFCameraOverTime %>% group_by(Year) %>% summarise(Front_Camera = mean(as.double(Front_Camera)))
+        
+        p <- ggplot(group, aes(x=Year, y=Front_Camera, )) +
+          geom_line() +
+          ylab("Camera (megapixels)") +
+          ggtitle("Mean front camera resolution over year") +
+          theme_minimal()
+      }
       
       ggplotly(p,  tootltip = "text")
     })
     
-    output$BatteryOverTimeLine <- renderPlotly({
-      datBatteryOverTime <- datLines %>% select(c("Battery", "Year"))
-      
-      datBatteryOverTime <- drop_na(datBatteryOverTime)
-      
-      group <- datBatteryOverTime %>% group_by(Year) %>% summarise(Battery = mean(Battery))
-      
-      p <- ggplot(group, aes(x=Year, y=Battery)) +
-        geom_line() +
-        ylab("Battery(maH)") +
-        ggtitle("Mean battery size in MaH over year") +
-        theme_minimal()
-      
-      ggplotly(p,  tootltip = "text")
-    })
-    
-    output$PrimaryCameraOverTimeLine <- renderPlotly({
-      datCameraOverTime <- datLines %>% select(c("Primary_Camera", "Year"))
-      
-      datCameraOverTime <- drop_na(datCameraOverTime)
-      
-      group <- datCameraOverTime %>% group_by(Year) %>% summarise(Primary_Camera = mean(Primary_Camera))
-      
-      p <- ggplot(group, aes(x=Year, y=Primary_Camera, )) +
-        geom_line() +
-        ylab("Camera (megapixels)") + 
-        ggtitle("Mean primary camera resolution over year") +
-        theme_minimal()
-      
-      ggplotly(p,  tootltip = "text")
-    })
-
-    output$FrontCameraOverTimeLine <- renderPlotly({
-      datFCameraOverTime <- datLines %>% select(c("Front_Camera", "Year"))
-      
-      datFCameraOverTime <- drop_na(datFCameraOverTime)
-      datFCameraOverTime <- datFCameraOverTime[!is.na(as.numeric(as.character(datFCameraOverTime$Front_Camera))),]
-      
-      datFCameraOverTime$Front_Camera <- word(datFCameraOverTime$Front_Camera, 1)
-      
-      group <- datFCameraOverTime %>% group_by(Year) %>% summarise(Front_Camera = mean(as.double(Front_Camera)))
-      
-      p <- ggplot(group, aes(x=Year, y=Front_Camera, )) +
-        geom_line() +
-        ylab("Camera (megapixels)") +
-        ggtitle("Mean front camera resolution over year") +
-        theme_minimal()
-      
-      ggplotly(p,  tootltip = "text")
-    })
     
     output$OSOverTime <- renderPlotly({
       datOSOverTime <- datLines %>% select(c("OS", "Year"))
@@ -380,4 +373,11 @@ shinyServer(function(input, output) {
       
       ggplotly(p,  tootltip = "text")
     })
+    
+    output$downloadData  <- downloadHandler(
+      filename = "smartphone_evolution.csv",
+      content = function (file){
+        write.csv(dat, file)
+      }
+    )
 })
