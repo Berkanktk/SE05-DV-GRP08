@@ -253,7 +253,7 @@ shinyServer(function(input, output) {
       
       ggplot(data=processCount, aes(area = n, fill = Processor, label = paste(Processor, n, sep = "\n"))) +
         geom_treemap() +
-        geom_treemap_text(colour = "white",
+        geom_treemap_text(colour = "black",
                           place = "centre",
                           size = 15) +
         ggtitle("Processor Marketshare") +
@@ -289,7 +289,7 @@ shinyServer(function(input, output) {
     output$EvolutionChart <- renderPlotly({
       selectedChart <- input$chart
       
-      if(selectedChart == "Display size over time"){
+      if(selectedChart == "Display size"){
         datSizeOverTime <- datLines %>% select(c("Display_Size", "Year"))
         
         datSizeOverTime <- drop_na(datSizeOverTime)
