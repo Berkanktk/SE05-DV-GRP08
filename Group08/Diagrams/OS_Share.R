@@ -32,10 +32,12 @@ OSCount <- OSCount %>% filter(n >= 21)
 
 ############################### CHARTS ###############################
 
+myPaletteCustom <- c("#A6CEE3","#1F78B4","#B2DF8A","#FB9A99","#E31A1C","#33A02C")
+
 # Pie Chart (Trash)
 pie(OSCount$n , 
     labels = OSCount$OS, 
-    col = myPalette, 
+    col = myPaletteCustom, 
     border = "white", 
     edges = 1000, 
     radius = 1, 
