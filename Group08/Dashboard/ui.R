@@ -76,10 +76,10 @@ navbarPage("Evolution of Smartphones",
                             "chart", 
                             "Select evolution to display", 
                             choices=c(
-                              "Display size over time", 
-                              "Battery size over time", 
-                              "Primary camera over time", 
-                              "Front camera over time"
+                              "Display size", 
+                              "Battery capacity", 
+                              "Primary camera resolution", 
+                              "Front camera resolution"
                               )
                             )
                         ),

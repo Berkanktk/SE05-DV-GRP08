@@ -302,7 +302,7 @@ shinyServer(function(input, output) {
           ggtitle("Mean display size in inches over year") +
           theme_minimal()
         
-      } else if(selectedChart == "Battery size over time"){
+      } else if(selectedChart == "Battery capacity"){
         datBatteryOverTime <- datLines %>% select(c("Battery", "Year"))
         
         datBatteryOverTime <- drop_na(datBatteryOverTime)
@@ -314,7 +314,7 @@ shinyServer(function(input, output) {
           ylab("Battery(maH)") +
           ggtitle("Mean battery size in MaH over year") +
           theme_minimal()
-      } else if(selectedChart == "Primary camera over time"){
+      } else if(selectedChart == "Primary camera resolution"){
         datCameraOverTime <- datLines %>% select(c("Primary_Camera", "Year"))
         
         datCameraOverTime <- drop_na(datCameraOverTime)
