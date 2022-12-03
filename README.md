@@ -5,26 +5,14 @@ Dataset can be found [here](https://www.kaggle.com/datasets/pranav941/evolution-
 * 3 Different types of graphs and 8 figures in total.
 
 ## Questions to be answered using data
-[//]: <> (Daniel)
-* Are more and more models being released each year?
-  * Bar chart showing how many new models was released each year
-    * Optional sort by brand
-  * Are new models released in any specific months?
-* How does phone size relate to battery?
-* Is there a corelation betwean brand and some variable?
-
-* Which brand has the highest market cap?
-  * Numbers of models on the market
-* Are there any relations between display resolutions and battery capacity?
-* Which OS does the phone come with?
-* Average growth of memory in smarthphones by each year
-* Storage growth by year
+* Are more Phones being released each year?
+* Are new models released in any specific month?
+* How does screen size relate to battery size?
 * Does Front camera evolution follow primary camera evolution?
-* How have phones evolved over time?
-  * Sizes
-  * Batteries
-  * Camera
-  * OS market share
+* Which processor brand is the most popular?
+* Which OS is the most popular among all the released models?
+* How have phones evolved over time(mean values)? 
+  * Display size, Battery capacity, average battery resolution, OS market share
 
 ## Report
 * Analysis
