@@ -357,11 +357,13 @@ shinyServer(function(input, output) {
       
       OSCount <- datOSOverTime %>% group_by(Year) %>% count(OS)
       
-      otherVal <- OSCount %>% filter(n < 13)
+      OSCountExclude <- OSCount %>% group_by(OS) %>% summarise(num = n(), totalOS = sum(n)) %>% filter(totalOS < 5)
+
+      otherVal <- OSCount %>% filter(OS %in% OSCountExclude$OS)
       otherValSumGrouped <- otherVal %>% group_by(Year) %>% summarise(n = sum(n), OS = "Other")
       OSCount <- rbind(OSCount, otherValSumGrouped)
       
-      OSCount <- OSCount %>% filter(n >= 4)
+      OSCount <- OSCount %>% filter(!OS %in% OSCountExclude$OS) 
       
       
       p <- ggplot(OSCount, aes(x=Year, y=n, fill=OS )) +
