@@ -10,7 +10,7 @@ library(RColorBrewer)
 # Battery and Display Size
 ####
 # Importing csv file
-dat <- read.csv("../Smartphone_updated_dates.csv")   
+dat <- read.csv("./Smartphone_updated_dates.csv")   
 
 # Filtering data
 dat <- dat %>% select(c("Battery", "Display_Size"))
@@ -24,7 +24,7 @@ datSize <- dat$Display_Size
 ####
 # Brand releases per year
 ####
-dat <- read_csv("../Data_Only_Year.csv")
+dat <- read_csv("./Data_Only_Year.csv")
 
 #Brand
 datBrand <- dat %>% select(c("Brand", "Release_Date"))
@@ -84,7 +84,7 @@ library(ggplot2)
 library(treemapify) # install.packages("treemapify")
 
 # Loading dataset
-data <- read.csv("../Smartphone_updated_dates.csv")   
+data <- read.csv("./Smartphone_updated_dates.csv")   
 
 # Stripping processor names
 data$Processor <- word(data$Processor, 1)
@@ -112,7 +112,7 @@ data <- data.frame(group,value)
 myPalette <- brewer.pal(8, "Paired") # Yellow color is a problem, easy fix tho
 
 # Loading dataset
-data <- read.csv("../Smartphone_updated_dates.csv")   
+data <- read.csv("./Smartphone_updated_dates.csv")   
 
 # Stripping OS names
 data$OS <- word(data$OS, 1)
@@ -138,7 +138,7 @@ OSCount <- OSCount %>% filter(n >= 21)
 # Line charts for general evolution
 ####
 
-datLines <- read_csv("../Smartphone_updated_dates.csv")
+datLines <- read_csv("./Smartphone_updated_dates.csv")
 datLines$Year<-as.numeric(as.POSIXlt(datLines$Release_Date)$year+1900)
 
 # Define server logic required to draw a histogram
@@ -166,8 +166,8 @@ shinyServer(function(input, output) {
     })
     
     output$heatmapRelease <- renderPlotly({
-      datH <- read_csv("../Smartphone_updated_dates.csv")
-      dat_datesH <- read_csv("../formatted_dates_full.csv")
+      datH <- read_csv("./Smartphone_updated_dates.csv")
+      dat_datesH <- read_csv("./formatted_dates_full.csv")
       datH[4] <- dat_datesH[1]
       
       datH <- datH %>% select(c("Brand", "Release_Date"))
@@ -203,8 +203,8 @@ shinyServer(function(input, output) {
     
     
     output$lineReleaseChart <- renderPlotly({
-      datH <- read_csv("../Smartphone_updated_dates.csv")
-      dat_datesH <- read_csv("../formatted_dates_full.csv")
+      datH <- read_csv("./Smartphone_updated_dates.csv")
+      dat_datesH <- read_csv("./formatted_dates_full.csv")
       datH[4] <- dat_datesH[1]
       
       datH <- datH %>% select(c("Brand", "Release_Date"))
