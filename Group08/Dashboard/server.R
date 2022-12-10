@@ -60,11 +60,12 @@ for(i in 1:nrow(brandCountByYear) ) {
 
 sortedDataOther <- data.frame(Brand=character(), Release_Date=integer(), n=integer())
 
+i = 1
 for(i in 1:nrow(brandCountByYear) ) {
   j = 1
   for(j in 1:nrow(brandWrong)){
     if(brandCountByYear$Brand[i] == brandWrong$Brand[j]){
-      sortedDataOther[nrow(sortedDataOther) + 1,] <- c("Other", brandCountByYear[j,][2], brandCountByYear[j,][3])
+      sortedDataOther[nrow(sortedDataOther) + 1,] <- c("Other", brandCountByYear[i,][2], brandCountByYear[i,][3])
       break;
     }
   }
@@ -361,7 +362,7 @@ shinyServer(function(input, output) {
       otherValSumGrouped <- otherVal %>% group_by(Year) %>% summarise(n = sum(n), OS = "Other")
       OSCount <- rbind(OSCount, otherValSumGrouped)
       
-      OSCount <- OSCount %>% filter(n >= 4)
+      OSCount <- OSCount %>% filter(n >= 3)
       
       
       p <- ggplot(OSCount, aes(x=Year, y=n, fill=OS )) +
