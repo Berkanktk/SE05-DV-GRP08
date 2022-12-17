@@ -98,6 +98,13 @@ navbarPage("Evolution of Smartphones",
                      fluidRow(
                        HTML("<p>The original dataset was found on kaggle, it can be found <a href='https://www.kaggle.com/datasets/pranav941/evolution-of-smartphones'>here</a>.</p><br /> <p>The data has been cleaned a little bit, so the dataset that has been used for this report can downloaded by pressing the download button below.</p>"),
                        downloadButton("downloadData", "Download")
+                     ),
+                     fluidRow(
+                       HTML("<br /><p>The code for this dashboard can be found on github <a href='https://github.com/Berkanktk/SE05-DV-GRP08'>here</a>.")
+                     ),
+                     fluidRow(
+                       HTML("<br /><p>A report for this dashboard has also been made, it can be downloaded by pressing the button below.</p>"),
+                       downloadButton("downloadReport", "Download")                        
                      )
                    )
 

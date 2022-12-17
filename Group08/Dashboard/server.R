@@ -383,4 +383,11 @@ shinyServer(function(input, output) {
         write.csv(dat, file)
       }
     )
+    
+    output$downloadReport <- downloadHandler(
+      filename = "SmartphoneEvolutionReport.pdf",
+      content = function (file){
+        file.copy("www/Data Visualisation Report.pdf", file)
+      }
+    )
 })
